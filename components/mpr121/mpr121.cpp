@@ -42,9 +42,9 @@ void MPR121Switch::set_output(uint8_t channel, bool high_side, bool low_side) {
 
 void MPR121Switch::write_state(bool state) {
 	if (state) {
-		this->parent_->set_output(this->output_));
+		this->parent_->set_output(this->output_);
 	} else {
-		this->parent_->clear_output(this->output_));
+		this->parent_->clear_output(this->output_);
 	}
 
 	publish_state(this->output_, state);
