@@ -88,12 +88,12 @@ class MPR121Switch : public switch_::Switch {
 		}
 		void write_state(bool state) override {
 			if (state) {
-				write_byte(MPR121_GPIOSET, 1<<(this->output_-4));
+				MPR121Component::set_output(this->output_));
 			} else {
-				write_byte(MPR121_GPIOCLR, 1<<(this->output_-4));
+				MPR121Component::clear_output(this->output_));
 			}
 
-			this->publish_state(state);
+			publish_state(this->output_, state);
 		}
 		void process(uint8_t data) { this->publish_state(static_cast<bool>((data>>(this->input_-4))&1)); }
 
@@ -109,10 +109,17 @@ class MPR121Component : public Component, public i2c::I2CDevice {
 		void register_input(MPR121Channel *input) { this->inputs_.push_back(input); }
 		void register_output(MPR121Switch *output) { this->outputs_.push_back(output); }
 
+		void write_state(uint8_t channel, ) {
+			this->wite
+		}
+
 		void set_touch_debounce(uint8_t debounce);
 		void set_release_debounce(uint8_t debounce);
 		void set_touch_threshold(uint8_t touch_threshold) { this->touch_threshold_ = touch_threshold; };
 		void set_release_threshold(uint8_t release_threshold) { this->release_threshold_ = release_threshold; };
+
+		void set_output(uint8_t channel) { this->write(MPR121_GPIOSET, 1<<(channel-4); }
+		void clear_output(uint8_t channel) { this->write(MPR121_GPIOCLR, 1<<(channel-4); }
 
 		uint8_t get_touch_threshold() { return this->touch_threshold_; };
 		uint8_t get_release_threshold() { return this->release_threshold_; };
