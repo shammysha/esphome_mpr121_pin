@@ -62,4 +62,5 @@ async def to_code(config):
     lowside = (CONF_LOWSIDE in modes and modes[CONF_LOWSIDE])
         
     cg.add(var.set_output(config[CONF_CHANNEL], highside, lowside))
+    cd.add(var.set_parent(hub))
     cg.add(hub.register_output(var))

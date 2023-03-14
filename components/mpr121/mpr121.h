@@ -2,8 +2,8 @@
 
 #include "esphome/core/component.h"
 #include "esphome/components/i2c/i2c.h"
-#include "./switch/switch.h"
-#include "./binary_sensor/binary_sensor.h"
+#include "esphome/components/switch/switch.h"
+#include "esphome/components/binary_sensor/binary_sensor.h"
 
 #include <vector>
 
@@ -50,6 +50,43 @@ enum {
 	MPR121_GPIOTOGGLE = 0x7A,
 	MPR121_SOFTRESET = 0x80,
 };
+
+class MPR121Channel : public binary_sensor::BinarySensor {
+	friend class MPR121Component;
+	protected:
+		uint8_t channel_{0};
+		optional<uint8_t> touch_threshold_{};
+		optional<uint8_t> release_threshold_{};
+
+		uint8_t input_{0};
+		bool pull_up_{};
+		bool pull_down_{};
+
+	public:
+		void set_channel(uint8_t channel);
+		void set_input(uint8_t channel, bool pull_up = false, bool pull_down = false);
+		void process_channel(uint16_t data);
+		void process_input(uint8_t data);
+
+		void set_touch_threshold(uint8_t touch_threshold);
+		void set_release_threshold(uint8_t release_threshold);
+};
+
+class MPR121Switch : public switch_::Switch {
+	friend class MPR121Component;
+
+	protected:
+		uint8_t output_{0};
+		bool high_side_{};
+		bool low_side_{};
+		MPR121Component *parent_;
+
+	public:
+		void set_parent(MPR121Component *parent); { this->parent_ = parent; }
+		void set_output(uint8_t channel, bool high_side = false, bool low_side = false);
+		void write_state(bool state) override;
+		void process(uint8_t data);
+
 
 class MPR121Component : public Component, public i2c::I2CDevice {
 	protected:

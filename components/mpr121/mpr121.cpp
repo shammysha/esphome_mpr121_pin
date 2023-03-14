@@ -7,6 +7,58 @@ namespace mpr121 {
 
 static const char *const TAG = "mpr121";
 
+void MPR121Channel::set_channel(uint8_t channel) {
+	channel_ = channel;
+}
+
+void MPR121Channel::set_input(uint8_t channel, bool pull_up, bool pull_down) {
+	input_ = channel;
+	pull_up_ = pull_up;
+	pull_down_ = pull_down;
+}
+
+void MPR121Channel::process_channel(uint16_t data) {
+	this->publish_state(static_cast<bool>(data & (1 << this->channel_)));
+}
+
+void MPR121Channel::process_input(uint8_t data) {
+	this->publish_state(static_cast<bool>((data>>(this->input_-4))&1));
+}
+
+void MPR121Channel::set_touch_threshold(uint8_t touch_threshold) {
+	this->touch_threshold_ = touch_threshold;
+}
+
+void MPR121Channel::set_release_threshold(uint8_t release_threshold) {
+	this->release_threshold_ = release_threshold;
+}
+
+
+void MPR121Switch::set_output(uint8_t channel, bool high_side, bool low_side) {
+	output_ = channel;
+	high_side_ = high_side;
+	low_side_ = low_side;
+}
+
+void MPR121Switch::write_state(bool state) {
+	if (state) {
+		MPR121Component::set_output(this->output_));
+	} else {
+		MPR121Component::clear_output(this->output_));
+	}
+
+	publish_state(this->output_, state);
+}
+
+void MPR121Switch::process(uint8_t data) {
+	this->publish_state(static_cast<bool>((data>>(this->input_-4))&1));
+}
+
+void MPR121Switch::set_parent(MPR121Component *parent); {
+	this->parent_ = parent;
+}
+
+
 void MPR121Component::setup() {
 	ESP_LOGCONFIG(TAG, "Setting up MPR121...");
 	// soft reset device
