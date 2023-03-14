@@ -1,6 +1,8 @@
 #include "mpr121.h"
 #include "esphome/core/log.h"
 #include "esphome/core/hal.h"
+#include "./binary_sensor/binary_sensor.h"
+#include "./switch/swith.h"
 
 namespace esphome {
 namespace mpr121 {
@@ -114,6 +116,47 @@ void MPR121Component::loop() {
 		input->process_input(lsb);
 	}
 }
+
+void MPR121Component::register_channel(MPR121Channel *channel) {
+	this->channels_.push_back(channel);
+}
+
+void MPR121Component::register_input(MPR121Channel *input) {
+	this->inputs_.push_back(input);
+}
+
+void MPR121Component::register_output(MPR121Switch *output) {
+	this->outputs_.push_back(output);
+}
+
+void MPR121Component::set_touch_threshold(uint8_t touch_threshold) {
+	this->touch_threshold_ = touch_threshold;
+};
+
+void MPR121Component::set_release_threshold(uint8_t release_threshold) {
+	this->release_threshold_ = release_threshold;
+};
+
+void MPR121Component::set_output(uint8_t channel) {
+	this->write(MPR121_GPIOSET, 1<<(channel-4);
+}
+
+void MPR121Component::clear_output(uint8_t channel) {
+	this->write(MPR121_GPIOCLR, 1<<(channel-4);
+}
+
+uint8_t MPR121Component::get_touch_threshold() {
+	return this->touch_threshold_;
+};
+
+uint8_t MPR121Component::get_release_threshold() {
+	return this->release_threshold_;
+};
+
+float MPR121Component::get_setup_priority() {
+	return setup_priority::DATA;
+}
+
 
 }	// namespace mpr121
 }	// namespace esphome
