@@ -1,4 +1,5 @@
 #include "switch.h"
+#include "../mpr121.h"
 
 namespace esphome {
 namespace mpr121 {
