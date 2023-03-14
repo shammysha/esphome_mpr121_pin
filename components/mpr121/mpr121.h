@@ -100,23 +100,6 @@ class MPR121Switch : public switch_::Switch {
 			this->publish_state(state);
 		}
 		void process(uint8_t data) { this->publish_state(static_cast<bool>((data>>(this->input_-4))&1)); }
-
-
-class MPR121Switch : public switch::Switch {
-	friend class MPR121Component;
-
-	public:
-		void set_switch(uint8_t channel, bool high_side = false, bool low_side = false) {
-			channel_ = channel;
-			high_side_ = high_side;
-			low_side_ = low_side;
-		}
-		void process(uint16_t data) { this->publish_state(static_cast<bool>(data & (1 << this->channel_))); }
-
-	protected:
-		uint8_t input_{0};
-		bool high_side_{};
-		bool low_side_{};
 };
 
 class MPR121Component : public Component, public i2c::I2CDevice {
