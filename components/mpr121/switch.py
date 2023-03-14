@@ -21,10 +21,10 @@ MPR121Switch = mpr121_ns.class_("MPR121Switch", switch.Switch)
 
 def validate_supports(value):
     num = value[CONF_CHANNEL]
-    
-    mode = value[CONF_MODE]
-    is_highside = mode[CONF_HIGHSIDE]
-    is_lowside = mode[CONF_LOWSIDE]
+    mode = config[CONF_NODE] if CONF_MODE in value else {}
+    is_highside = mode[CONF_HIGHSIDE] if CONF_HIGHSIDE in mode else False
+    is_lowside = mode[CONF_LOWSIDE] if CONF_LOWSIDE in mode else False    
+
 
     if not (num >= 4 and num <= 11):
         raise cv.Invalid(
