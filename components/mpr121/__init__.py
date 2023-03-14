@@ -28,7 +28,7 @@ CONFIG_SCHEMA = (
             ),
             cv.Optional(CONF_RELEASE_THRESHOLD, default=0x06): cv.int_range(
                 min=0x05, max=0x30
-            ),
+            )
         }
     )
     .extend(cv.COMPONENT_SCHEMA)

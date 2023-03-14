@@ -67,10 +67,9 @@ CONFIG_SCHEMA = binary_sensor.binary_sensor_schema(MPR121Channel).extend(
         cv.Optional(CONF_GPIO, default=False): cv.boolean,
         cv.Optional(CONF_MODE): cv.Schema({
             cv.Optional(CONF_PULLUP, default=False): cv.boolean,
-            cv.Optional(CONF_PULLDOWN, default=False): cv.boolean,
+            cv.Optional(CONF_PULLDOWN, default=False): cv.boolean
         })
-    },
-    validate_supports    
+    }
 )
 
 

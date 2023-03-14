@@ -47,8 +47,7 @@ CONFIG_SCHEMA = switch.switch_schema(MPR121Switch).extend(
             cv.Optional(CONF_HIGHSIDE, default=False): cv.boolean,
             cv.Optional(CONF_LOWSIDE, default=False): cv.boolean,
         })
-    },
-    validate_supports    
+    }
 )
 
 
