@@ -1,4 +1,3 @@
-import voluptuous as vol
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import binary_sensor
@@ -66,7 +65,7 @@ CONFIG_SCHEMA = binary_sensor.binary_sensor_schema(MPR121Channel).extend(
         cv.Optional(CONF_TOUCH_THRESHOLD): cv.int_range(min=0x05, max=0x30),
         cv.Optional(CONF_RELEASE_THRESHOLD): cv.int_range(min=0x05, max=0x30),
         cv.Optional(CONF_GPIO, default=False): cv.boolean,
-        cv.Optional(CONF_MODE): vol.Schema({
+        cv.Optional(CONF_MODE): cv.Schema({
             cv.Optional(CONF_PULLUP, default=False): cv.boolean,
             cv.Optional(CONF_PULLDOWN, default=False): cv.boolean,
         })
