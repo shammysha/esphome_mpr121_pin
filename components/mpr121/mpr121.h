@@ -115,7 +115,7 @@ class MPR121Switch : public switch_::Switch {
 		MPR121Component *parent_;
 
 	public:
-		void set_parent(MPR121Component *parent); { this->parent_ = parent; }
+		void set_parent(MPR121Component *parent);
 		void set_output(uint8_t channel, bool high_side = false, bool low_side = false);
 		void write_state(bool state) override;
 		void process(uint8_t data);
