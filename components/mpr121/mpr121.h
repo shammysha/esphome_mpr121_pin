@@ -53,6 +53,7 @@ enum {
 
 class MPR121Channel : public binary_sensor::BinarySensor {
 	friend class MPR121Component;
+
 	protected:
 		uint8_t channel_{0};
 		optional<uint8_t> touch_threshold_{};
