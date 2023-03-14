@@ -84,7 +84,6 @@ class MPR121Switch : public switch_::Switch {
 	friend class MPR121Component;
 
 	public:
-		void set_channel(uint8_t channel) { channel_ = channel; }
 		void set_output(uint8_t channel, bool high_side = false, bool low_side = false) {
 			output_ = channel;
 			high_side_ = high_side;
