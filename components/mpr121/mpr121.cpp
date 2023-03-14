@@ -42,9 +42,9 @@ void MPR121Switch::set_output(uint8_t channel, bool high_side, bool low_side) {
 
 void MPR121Switch::write_state(bool state) {
 	if (state) {
-		MPR121Component::set_output(this->output_));
+		this->parent->set_output(this->output_));
 	} else {
-		MPR121Component::clear_output(this->output_));
+		this->parent->clear_output(this->output_));
 	}
 
 	publish_state(this->output_, state);
@@ -188,11 +188,11 @@ void MPR121Component::set_release_threshold(uint8_t release_threshold) {
 };
 
 void MPR121Component::set_output(uint8_t channel) {
-	this->write(MPR121_GPIOSET, 1<<(channel-4);
+	this->write_byte(MPR121_GPIOSET, 1<<(channel-4));
 }
 
 void MPR121Component::clear_output(uint8_t channel) {
-	this->write(MPR121_GPIOCLR, 1<<(channel-4);
+	this->write_byte(MPR121_GPIOCLR, 1<<(channel-4));
 }
 
 uint8_t MPR121Component::get_touch_threshold() {
