@@ -7,7 +7,7 @@ void MPR121Channel::set_channel(uint8_t channel) {
 	channel_ = channel;
 }
 
-void MPR121Channel::set_input(uint8_t channel, bool pull_up = false, bool pull_down = false) {
+void MPR121Channel::set_input(uint8_t channel, bool pull_up, bool pull_down) {
 	input_ = channel;
 	pull_up_ = pull_up;
 	pull_down_ = pull_down;

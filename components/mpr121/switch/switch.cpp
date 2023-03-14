@@ -3,7 +3,7 @@
 namespace esphome {
 namespace mpr121 {
 
-void MPR121Switch::set_output(uint8_t channel, bool high_side = false, bool low_side = false) {
+void MPR121Switch::set_output(uint8_t channel, bool high_side, bool low_side) {
 	output_ = channel;
 	high_side_ = high_side;
 	low_side_ = low_side;
