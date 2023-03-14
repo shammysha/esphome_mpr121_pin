@@ -50,10 +50,6 @@ void MPR121Switch::write_state(bool state) {
 	publish_state(state);
 }
 
-void MPR121Switch::process(uint8_t data) {
-	this->publish_state(static_cast<bool>((data>>(this->input_-4))&1));
-}
-
 void MPR121Switch::set_parent(MPR121Component *parent) {
 	this->parent_ = parent;
 }
