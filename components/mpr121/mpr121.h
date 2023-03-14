@@ -86,7 +86,7 @@ class MPR121Switch : public switch_::Switch {
 		void set_output(uint8_t channel, bool high_side = false, bool low_side = false);
 		void write_state(bool state) override;
 		void process(uint8_t data);
-
+};
 
 class MPR121Component : public Component, public i2c::I2CDevice {
 	protected:
