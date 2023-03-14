@@ -62,7 +62,7 @@ class MPR121Channel : public binary_sensor::BinarySensor {
 			pull_down_ = pull_down;
 		}
 		void process_channel(uint16_t data) { this->publish_state(static_cast<bool>(data & (1 << this->channel_))); }
-		void process_input(uint8t data) { this->publish_state(static_cast<bool>((data>>(this->input_-4))&1)); }
+		void process_input(uint8_t data) { this->publish_state(static_cast<bool>((data>>(this->input_-4))&1)); }
 
 		void set_touch_threshold(uint8_t touch_threshold) { this->touch_threshold_ = touch_threshold; };
 		void set_release_threshold(uint8_t release_threshold) { this->release_threshold_ = release_threshold; };
@@ -80,7 +80,7 @@ class MPR121Channel : public binary_sensor::BinarySensor {
 		void set_pull_down(bool pull_up = false) { this->pull_up_ = pull_up; };
 };
 
-class MPR121Switch : public switch::Switch {
+class MPR121Switch : public switch_::Switch {
 	friend class MPR121Component;
 
 	public:
@@ -99,7 +99,7 @@ class MPR121Switch : public switch::Switch {
 
 			this->publish_state(state);
 		}
-		void process(uint8t data) { this->publish_state(static_cast<bool>((data>>(this->input_-4))&1)); }
+		void process(uint8_t data) { this->publish_state(static_cast<bool>((data>>(this->input_-4))&1)); }
 
 
 class MPR121Switch : public switch::Switch {
