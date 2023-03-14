@@ -73,6 +73,38 @@ class MPR121Channel : public binary_sensor::BinarySensor {
 		void set_release_threshold(uint8_t release_threshold);
 };
 
+class MPR121Component : public Component, public i2c::I2CDevice {
+	protected:
+		std::vector<MPR121Channel *> channels_{};
+		std::vector<MPR121Channel *> inputs_{};
+
+		uint8_t debounce_{0};
+		uint8_t touch_threshold_{};
+		uint8_t release_threshold_{};
+
+		enum ErrorCode {
+			NONE = 0,
+			COMMUNICATION_FAILED,
+			WRONG_CHIP_STATE,
+		} error_code_{NONE};
+
+	public:
+		void register_channel(MPR121Channel *channel);
+		void register_input(MPR121Channel *input);
+		void set_touch_debounce(uint8_t debounce);
+		void set_release_debounce(uint8_t debounce);
+		void set_touch_threshold(uint8_t touch_threshold);
+		void set_release_threshold(uint8_t release_threshold);
+		void set_output(uint8_t channel);
+		void clear_output(uint8_t channel);
+		uint8_t get_touch_threshold();
+		uint8_t get_release_threshold();
+		void setup() override;
+		void dump_config() override;
+		float get_setup_priority() const override;
+		void loop() override;
+};
+
 class MPR121Switch : public switch_::Switch {
 	friend class MPR121Component;
 
@@ -88,40 +120,5 @@ class MPR121Switch : public switch_::Switch {
 		void write_state(bool state) override;
 		void process(uint8_t data);
 };
-
-class MPR121Component : public Component, public i2c::I2CDevice {
-	protected:
-		std::vector<MPR121Channel *> channels_{};
-		std::vector<MPR121Channel *> inputs_{};
-		std::vector<MPR121Switch *> outputs_{};
-
-		uint8_t debounce_{0};
-		uint8_t touch_threshold_{};
-		uint8_t release_threshold_{};
-
-		enum ErrorCode {
-			NONE = 0,
-			COMMUNICATION_FAILED,
-			WRONG_CHIP_STATE,
-		} error_code_{NONE};
-
-	public:
-		void register_channel(MPR121Channel *channel);
-		void register_input(MPR121Channel *input);
-		void register_output(MPR121Switch *output);
-		void set_touch_debounce(uint8_t debounce);
-		void set_release_debounce(uint8_t debounce);
-		void set_touch_threshold(uint8_t touch_threshold);
-		void set_release_threshold(uint8_t release_threshold);
-		void set_output(uint8_t channel);
-		void clear_output(uint8_t channel);
-		uint8_t get_touch_threshold();
-		uint8_t get_release_threshold();
-		void setup() override;
-		void dump_config() override;
-		float get_setup_priority() const override;
-		void loop() override;
-};
-
 }	// namespace mpr121
 }	// namespace esphome
