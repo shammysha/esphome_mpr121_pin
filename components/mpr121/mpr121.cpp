@@ -47,7 +47,7 @@ void MPR121Switch::write_state(bool state) {
 		this->parent_->clear_output(this->output_);
 	}
 
-	publish_state(this->output_, state);
+	publish_state(state);
 }
 
 void MPR121Switch::process(uint8_t data) {
