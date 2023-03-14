@@ -1,6 +1,7 @@
 #pragma once
 
 #include "esphome/components/switch/switch.h"
+#include "../mpr121.h"
 
 namespace esphome {
 namespace mpr121 {
