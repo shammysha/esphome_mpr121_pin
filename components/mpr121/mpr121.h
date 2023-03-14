@@ -104,6 +104,7 @@ class MPR121Component : public Component, public i2c::I2CDevice {
 			COMMUNICATION_FAILED,
 			WRONG_CHIP_STATE,
 		} error_code_{NONE};
+
 	public:
 		void register_channel(MPR121Channel *channel);
 		void register_input(MPR121Channel *input);
