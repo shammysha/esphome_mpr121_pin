@@ -7,7 +7,7 @@ from esphome.const import (
     CONF_MODE
 )    
     
-from . import (
+from .. import (
     mpr121_ns,
     MPR121Component,
     CONF_MPR121_ID,
