@@ -2,7 +2,7 @@
 #include "esphome/core/log.h"
 #include "esphome/core/hal.h"
 #include "./binary_sensor/binary_sensor.h"
-#include "./switch/switch.h"
+
 
 namespace esphome {
 namespace mpr121 {
