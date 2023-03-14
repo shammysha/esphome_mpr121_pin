@@ -22,7 +22,7 @@ MPR121Channel = mpr121_ns.class_("MPR121Channel", binary_sensor.BinarySensor)
 
 def validate_supports(value):
     num = value[CONF_CHANNEL]
-    is_gpio = valuee[CONF_GPIO]
+    is_gpio = value[CONF_GPIO]
     
     mode = value[CONF_MODE]
     is_pullup = mode[CONF_PULLUP]

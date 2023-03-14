@@ -21,6 +21,7 @@ MPR121Switch = mpr121_ns.class_("MPR121Switch", switch.Switch)
 
 def validate_supports(value):
     num = value[CONF_CHANNEL]
+    
     mode = value[CONF_MODE]
     is_highside = mode[CONF_HIGHSIDE]
     is_lowside = mode[CONF_LOWSIDE]
