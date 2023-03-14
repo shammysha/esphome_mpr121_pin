@@ -9,7 +9,7 @@ CONF_TOUCH_DEBOUNCE = "touch_debounce"
 CONF_RELEASE_DEBOUNCE = "release_debounce"
 
 DEPENDENCIES = ["i2c"]
-AUTO_LOAD = ["binary_sensor", "switch", "ouput"]
+AUTO_LOAD = ["binary_sensor", "switch"]
 
 mpr121_ns = cg.esphome_ns.namespace("mpr121")
 CONF_MPR121_ID = "mpr121_id"

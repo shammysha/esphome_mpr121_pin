@@ -39,15 +39,16 @@ def validate_supports(value):
 
     return value
 
-CONFIG_SCHEMA = switch.switch_schema(MPR121Switch).extend(
-    {
+CONFIG_SCHEMA = cv.All(
+    switch.switch_schema(MPR121Switch).extend({
         cv.GenerateID(CONF_MPR121_ID): cv.use_id(MPR121Component),
         cv.Required(CONF_CHANNEL): cv.int_range(min=4, max=11),
         cv.Optional(CONF_MODE): cv.Schema({
             cv.Optional(CONF_HIGHSIDE, default=False): cv.boolean,
             cv.Optional(CONF_LOWSIDE, default=False): cv.boolean,
         })
-    }
+    }),
+    validate_supports
 )
 
 

@@ -58,8 +58,8 @@ def validate_supports(value):
 
     return value
 
-CONFIG_SCHEMA = binary_sensor.binary_sensor_schema(MPR121Channel).extend(
-    {
+CONFIG_SCHEMA = cv.All(
+    binary_sensor.binary_sensor_schema(MPR121Channel).extend({
         cv.GenerateID(CONF_MPR121_ID): cv.use_id(MPR121Component),
         cv.Required(CONF_CHANNEL): cv.int_range(min=0, max=11),
         cv.Optional(CONF_TOUCH_THRESHOLD): cv.int_range(min=0x05, max=0x30),
@@ -69,7 +69,8 @@ CONFIG_SCHEMA = binary_sensor.binary_sensor_schema(MPR121Channel).extend(
             cv.Optional(CONF_PULLUP, default=False): cv.boolean,
             cv.Optional(CONF_PULLDOWN, default=False): cv.boolean
         })
-    }
+    }),
+    validate_supports    
 )
 
 
