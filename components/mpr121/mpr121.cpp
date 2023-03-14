@@ -79,7 +79,7 @@ void MPR121Component::setup() {
 		uint8_t bitmask = 1<<(input->input_-4);
 		uint8_t data;
 
-		data = this->read_byte(MPR121_GPIOEN)::value;
+		data = this->read_byte((uint8)MPR121_GPIOEN)::value;
 		this->write_byte(MPR121_GPIOEN, data | bitmask);
 		this->write_byte(MPR121_GPIODIR, this->read_byte(MPR121_GPIODIR) &~ bitmask);
 
