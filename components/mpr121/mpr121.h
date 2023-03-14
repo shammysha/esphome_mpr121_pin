@@ -2,6 +2,8 @@
 
 #include "esphome/core/component.h"
 #include "esphome/components/i2c/i2c.h"
+#include "./binary_sensor/binary_sensor.h"
+#include "./switch/switch.h"
 
 #include <vector>
 
