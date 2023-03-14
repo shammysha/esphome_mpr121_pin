@@ -75,9 +75,6 @@ class MPR121Channel : public binary_sensor::BinarySensor {
 		uint8_t input_{0};
 		bool pull_up_{};
 		bool pull_down_{};
-
-		void set_pull_up(bool pull_up = false) { this->pull_up_ = pull_up; };
-		void set_pull_down(bool pull_up = false) { this->pull_up_ = pull_up; };
 };
 
 class MPR121Switch : public switch_::Switch {
@@ -99,6 +96,11 @@ class MPR121Switch : public switch_::Switch {
 			this->publish_state(state);
 		}
 		void process(uint8_t data) { this->publish_state(static_cast<bool>((data>>(this->input_-4))&1)); }
+
+	protected:
+		uint8_t output_{0};
+		bool high_side_{};
+		bool low_side_{};
 };
 
 class MPR121Component : public Component, public i2c::I2CDevice {
