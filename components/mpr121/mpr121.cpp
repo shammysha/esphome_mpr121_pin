@@ -162,16 +162,16 @@ void MPR121Component::dump_config() {
 			break;
 	}
 	uint8_t data = 0;
-//	this->write_byte(MPR121_ECR, 0x8F);
-//	this->read_byte(MPR121_GPIOEN, &data);
-//	for (int i=0;i<12;i++) {
-//		bool bit =  data & (1 << i);
-//		if (bit) {
-//			ESP_LOGCONFIG(TAG, "   PIN %d set as GPIO", i);
-//		} else {
-//			ESP_LOGCONFIG(TAG, "   PIN %d set as TOUCH", i);
-//		}
-//	}
+	this->write_byte(MPR121_ECR, 0x8F);
+	this->read_byte(MPR121_GPIOEN, &data);
+	for (int i=0;i<12;i++) {
+		bool bit =  data & (1 << i);
+		if (bit) {
+			ESP_LOGCONFIG(TAG, "   PIN %d set as GPIO", i);
+		} else {
+			ESP_LOGCONFIG(TAG, "   PIN %d set as TOUCH", i);
+		}
+	}
 }
 void MPR121Component::loop() {
 	uint16_t val = 0;
@@ -186,10 +186,10 @@ void MPR121Component::loop() {
 		channel->process_channel(val);
 	}
 
-//	this->read_byte(MPR121_GPIODATA, &lsb);
-//	for (auto *input : this->inputs_) {
-//		input->process_input(lsb);
-//	}
+	this->read_byte(MPR121_GPIODATA, &lsb);
+	for (auto *input : this->inputs_) {
+		input->process_input(lsb);
+	}
 }
 
 void MPR121Component::register_channel(MPR121Channel *channel) {
