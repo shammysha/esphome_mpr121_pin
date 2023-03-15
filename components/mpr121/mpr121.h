@@ -7,7 +7,7 @@
 
 #include <vector>
 
-#include <logger>
+#include "esphome/core/log.h"
 
 namespace esphome {
 namespace mpr121 {
