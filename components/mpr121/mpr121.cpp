@@ -38,6 +38,8 @@ void MPR121Switch::set_output(uint8_t channel, bool high_side, bool low_side) {
 	output_ = channel;
 	high_side_ = high_side;
 	low_side_ = low_side;
+
+	this->turn_off();
 }
 
 void MPR121Switch::write_state(bool state) {
@@ -56,7 +58,10 @@ void MPR121Switch::set_parent(MPR121Component *parent) {
 
 
 void MPR121Component::setup() {
+	uint8_t data = 0;
+
 	ESP_LOGCONFIG(TAG, "Setting up MPR121...");
+
 	// soft reset device
 	this->write_byte(MPR121_SOFTRESET, 0x63);
 	delay(100);	// NOLINT
@@ -82,7 +87,6 @@ void MPR121Component::setup() {
 	for (auto *input : this->inputs_) {
 		uint8_t bitmask = 1<<(input->input_-4);
 
-		uint8_t data = 0;
 		this->read_byte(MPR121_GPIOEN, &data);
 		this->write_byte(MPR121_GPIOEN, data | bitmask);
 		this->read_byte(MPR121_GPIODIR, &data);
@@ -154,6 +158,16 @@ void MPR121Component::dump_config() {
 		case NONE:
 		default:
 			break;
+	}
+	uint8_t data = 0;
+	this->read_byte(MPR121_GPIOEN, &data);
+	for (int i=0;i<12;i++) {
+		bool bit =  data & (1 << i);
+		if (bit) {
+			ESP_LOGCONFIG(TAG, "   PIN %d set as GPIO", i);
+		} else {
+			ESP_LOGCONFIG(TAG, "   PIN %d set as TOUCH", i);
+		}
 	}
 }
 void MPR121Component::loop() {
