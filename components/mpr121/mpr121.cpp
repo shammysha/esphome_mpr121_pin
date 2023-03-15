@@ -169,8 +169,7 @@ void MPR121Component::loop() {
 		channel->process_channel(val);
 	}
 
-	lsb = this->read(MPR121_GPIODATA);
-
+	this->read_byte(MPR121_GPIODATA, &lsb);
 	for (auto *input : this->inputs_) {
 		input->process_input(lsb);
 	}
