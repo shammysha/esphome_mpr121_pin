@@ -161,7 +161,8 @@ void MPR121Component::dump_config() {
 		default:
 			break;
 	}
-//	uint8_t data = 0;
+	uint8_t data = 0;
+	this->write_byte(MPR121_ECR, 0x8F);
 //	this->read_byte(MPR121_GPIOEN, &data);
 //	for (int i=0;i<12;i++) {
 //		bool bit =  data & (1 << i);
