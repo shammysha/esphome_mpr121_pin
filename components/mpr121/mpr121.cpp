@@ -81,9 +81,9 @@ void MPR121Component::setup() {
 	// set touch sensitivity for all channels
 	for (auto *input : this->inputs_) {
 		uint8_t bitmask = 1<<(input->input_-4);
-		uint8_t data;
+		uint8_t data = 0;
 
-		data = &this->read_byte(MPR121_GPIOEN*1);
+		this->read_byte(MPR121_GPIOEN, &data);
 		this->write_byte(MPR121_GPIOEN, data | bitmask);
 		this->write_byte(MPR121_GPIODIR, this->read_byte(MPR121_GPIODIR) &~ bitmask);
 
