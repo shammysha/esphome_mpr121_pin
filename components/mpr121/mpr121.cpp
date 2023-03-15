@@ -193,11 +193,13 @@ void MPR121Component::set_release_threshold(uint8_t release_threshold) {
 };
 
 void MPR121Component::set_output(uint8_t channel) {
-	this->write_byte(MPR121_GPIOSET, 1<<(channel-4));
+	bool res = this->write_byte(MPR121_GPIOSET, 1<<(channel-4));
+	ESP_LOGDEBUG(TAG, "Result of set: %s'", res.c_str());
 }
 
 void MPR121Component::clear_output(uint8_t channel) {
-	this->write_byte(MPR121_GPIOCLR, 1<<(channel-4));
+	bool res = this->write_byte(MPR121_GPIOCLR, 1<<(channel-4));
+	ESP_LOGDEBUG(TAG, "Result of unset: %s'", res.c_str());
 }
 
 uint8_t MPR121Component::get_touch_threshold() {
