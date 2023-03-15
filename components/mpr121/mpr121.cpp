@@ -162,16 +162,16 @@ void MPR121Component::dump_config() {
 		default:
 			break;
 	}
-	uint8_t data = 0;
-	this->read_byte(MPR121_GPIOEN, &data);
-	for (int i=0;i<12;i++) {
-		bool bit =  data & (1 << i);
-		if (bit) {
-			ESP_LOGCONFIG(TAG, "   PIN %d set as GPIO", i);
-		} else {
-			ESP_LOGCONFIG(TAG, "   PIN %d set as TOUCH", i);
-		}
-	}
+//	uint8_t data = 0;
+//	this->read_byte(MPR121_GPIOEN, &data);
+//	for (int i=0;i<12;i++) {
+//		bool bit =  data & (1 << i);
+//		if (bit) {
+//			ESP_LOGCONFIG(TAG, "   PIN %d set as GPIO", i);
+//		} else {
+//			ESP_LOGCONFIG(TAG, "   PIN %d set as TOUCH", i);
+//		}
+//	}
 }
 void MPR121Component::loop() {
 	uint16_t val = 0;
