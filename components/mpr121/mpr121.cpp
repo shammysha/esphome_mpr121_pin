@@ -183,9 +183,6 @@ void MPR121Component::register_input(MPR121Channel *input) {
 	this->inputs_.push_back(input);
 }
 
-void MPR121Component::register_output(MPR121Switch *output) {
-	this->outputs_.push_back(output);
-}
 
 void MPR121Component::set_touch_threshold(uint8_t touch_threshold) {
 	this->touch_threshold_ = touch_threshold;
@@ -211,7 +208,7 @@ uint8_t MPR121Component::get_release_threshold() {
 	return this->release_threshold_;
 };
 
-float MPR121Component::get_setup_priority() {
+float MPR121Component::get_setup_priority() const {
 	return setup_priority::DATA;
 }
 
