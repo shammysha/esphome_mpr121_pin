@@ -185,10 +185,10 @@ void MPR121Component::loop() {
 		channel->process_channel(val);
 	}
 
-	this->read_byte(MPR121_GPIODATA, &lsb);
-	for (auto *input : this->inputs_) {
-		input->process_input(lsb);
-	}
+//	this->read_byte(MPR121_GPIODATA, &lsb);
+//	for (auto *input : this->inputs_) {
+//		input->process_input(lsb);
+//	}
 }
 
 void MPR121Component::register_channel(MPR121Channel *channel) {
