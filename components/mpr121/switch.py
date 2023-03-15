@@ -57,7 +57,7 @@ async def to_code(config):
     var = await switch.new_switch(config)
     hub = await cg.get_variable(config[CONF_MPR121_ID])
 
-    modes = config[CONF_NODE] if CONF_MODE in config else {}
+    modes = config[CONF_MODE] if CONF_MODE in config else {}
     highside = (CONF_HIGHSIDE in modes and modes[CONF_HIGHSIDE])
     lowside = (CONF_LOWSIDE in modes and modes[CONF_LOWSIDE])
         
