@@ -73,7 +73,6 @@ void MPR121Component::setup() {
 
 	// set touch sensitivity for all channels
 	for (auto *channel : this->channels_) {
-		ESP_LOGI(TAG, "Channel %d'", channel->channel_);
 		this->write_byte(
 			MPR121_TOUCHTH_0 + 2 * channel->channel_,
 			channel->touch_threshold_.value_or(this->touch_threshold_)
@@ -82,34 +81,6 @@ void MPR121Component::setup() {
 			MPR121_RELEASETH_0 + 2 * channel->channel_,
 			channel->release_threshold_.value_or(this->release_threshold_)
 		);
-	}
-
-	// set touch sensitivity for all channels
-	for (auto *input : this->inputs_) {
-		ESP_LOGI(TAG, "Channel %d'", input->input_);
-		uint8_t bitmask = 1<<(input->input_-4);
-
-		this->read_byte(MPR121_GPIOEN, &data);
-		this->write_byte(MPR121_GPIOEN, data | bitmask);
-		this->read_byte(MPR121_GPIODIR, &data);
-		this->write_byte(MPR121_GPIODIR, data &~ bitmask);
-
-		if (input->pull_up_) {
-			this->read_byte(MPR121_GPIOCTL0, &data);
-			this->write_byte(MPR121_GPIOCTL0, data | bitmask);
-			this->read_byte(MPR121_GPIOCTL1, &data);
-			this->write_byte(MPR121_GPIOCTL1, data | bitmask);
-		} else if (input->pull_down_) {
-			this->read_byte(MPR121_GPIOCTL0, &data);
-			this->write_byte(MPR121_GPIOCTL0, data | bitmask);
-			this->read_byte(MPR121_GPIOCTL1, &data);
-			this->write_byte(MPR121_GPIOCTL1, data & ~bitmask);
-		} else {
-			this->read_byte(MPR121_GPIOCTL0, &data);
-			this->write_byte(MPR121_GPIOCTL0, data & ~bitmask);
-			this->read_byte(MPR121_GPIOCTL1, &data);
-			this->write_byte(MPR121_GPIOCTL1, data & ~bitmask);
-		}
 	}
 
 	this->write_byte(MPR121_MHDR, 0x01);
