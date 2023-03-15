@@ -25,7 +25,7 @@ def validate_supports(value):
     is_touch = value[CONF_TOUCH_THRESHOLD] if CONF_TOUCH_THRESHOLD in value else False
     is_release = value[CONF_RELEASE_THRESHOLD] if CONF_RELEASE_THRESHOLD in value else False
     is_gpio = value[CONF_GPIO] if CONF_GPIO in value else False
-    mode = config[CONF_NODE] if CONF_MODE in value else {}
+    mode = value[CONF_NODE] if CONF_MODE in value else {}
     is_pullup = mode[CONF_PULLUP] if CONF_PULLUP in mode else False
     is_pulldown = mode[CONF_PULLDOWN] if CONF_PULLDOWN in mode else False
 
