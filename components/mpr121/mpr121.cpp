@@ -73,7 +73,7 @@ void MPR121Component::setup() {
 
 	// set touch sensitivity for all channels
 	for (auto *channel : this->channels_) {
-		ESP_LOGD(TAG, "Channel %d'", channel->channel_);
+		ESP_LOGI(TAG, "Channel %d'", channel->channel_);
 		this->write_byte(
 			MPR121_TOUCHTH_0 + 2 * channel->channel_,
 			channel->touch_threshold_.value_or(this->touch_threshold_)
@@ -86,7 +86,7 @@ void MPR121Component::setup() {
 
 	// set touch sensitivity for all channels
 	for (auto *input : this->inputs_) {
-		ESP_LOGD(TAG, "Channel %d'", input->input_);
+		ESP_LOGI(TAG, "Channel %d'", input->input_);
 		uint8_t bitmask = 1<<(input->input_-4);
 
 		this->read_byte(MPR121_GPIOEN, &data);
@@ -210,12 +210,12 @@ void MPR121Component::set_release_threshold(uint8_t release_threshold) {
 
 void MPR121Component::set_output(uint8_t channel) {
 	bool res = this->write_byte(MPR121_GPIOSET, 1<<(channel-4));
-	ESP_LOGD(TAG, "Result of set: %s'", res);
+	ESP_LOGI(TAG, "Result of set: %s'", res);
 }
 
 void MPR121Component::clear_output(uint8_t channel) {
 	bool res = this->write_byte(MPR121_GPIOCLR, 1<<(channel-4));
-	ESP_LOGD(TAG, "Result of unset: %s'", res);
+	ESP_LOGI(TAG, "Result of unset: %s'", res);
 }
 
 uint8_t MPR121Component::get_touch_threshold() {
