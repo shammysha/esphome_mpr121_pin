@@ -74,6 +74,7 @@ void MPR121Component::setup() {
 	this->read_byte(MPR121_GPIOEN, 0);
 	// set touch sensitivity for all channels
 	for (auto *channel : this->channels_) {
+		ESP_LOGD(TAG, "Channel %d'", channel->channel_);
 		this->write_byte(
 			MPR121_TOUCHTH_0 + 2 * channel->channel_,
 			channel->touch_threshold_.value_or(this->touch_threshold_)
@@ -86,6 +87,7 @@ void MPR121Component::setup() {
 
 	// set touch sensitivity for all channels
 	for (auto *input : this->inputs_) {
+		ESP_LOGD(TAG, "Channel %d'", input->input_);
 		uint8_t bitmask = 1<<(input->input_-4);
 
 		this->read_byte(MPR121_GPIOEN, &data);
