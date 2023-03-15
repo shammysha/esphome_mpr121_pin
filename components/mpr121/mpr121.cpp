@@ -22,7 +22,7 @@ void MPR121Channel::process_channel(uint16_t data) {
 }
 
 void MPR121Channel::process_input(uint8_t data) {
-	this->publish_state(static_cast<bool>((data>>(this->input_-4))&1));
+	this->publish_state(static_cast<bool>((data>>(this->input_-4))&1) == 1));
 }
 
 void MPR121Channel::set_touch_threshold(uint8_t touch_threshold) {
