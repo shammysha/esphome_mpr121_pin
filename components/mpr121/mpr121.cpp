@@ -198,7 +198,7 @@ void MPR121Component::set_output(uint8_t channel) {
 }
 
 void MPR121Component::clear_output(uint8_t channel) {
-	res = this->write_byte(MPR121_GPIOCLR, 1<<(channel-4));
+	bool res = this->write_byte(MPR121_GPIOCLR, 1<<(channel-4));
 	ESP_LOGD(TAG, "Result of unset: %s'", res);
 }
 
